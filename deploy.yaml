@@ -4,7 +4,7 @@ metadata:
   namespace: swe599-demo
   name: k8s-spring-demo
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: k8s-spring-demo-app
@@ -16,6 +16,7 @@ spec:
       containers:
         - name: k8s-spring-demo
           image: k8s-spring-demo
+          imagePullPolicy: IfNotPresent
           ports:
             - name: http
               containerPort: 8081
