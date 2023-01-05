@@ -1,1 +1,1 @@
-# k8s-spring-demo
+# openshift-spring-demo

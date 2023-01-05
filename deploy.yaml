@@ -1,0 +1,42 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  namespace: swe599-demo
+  name: k8s-spring-demo
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: k8s-spring-demo-app
+  template:
+    metadata:
+      labels:
+        app: k8s-spring-demo-app
+    spec:
+      containers:
+        - name: k8s-spring-demo
+          image: k8s-spring-demo
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  namespace: swe599-demo
+  name: k8s-spring-demo-service
+spec:
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30001
+  selector:
+    app: k8s-spring-demo-app
+
